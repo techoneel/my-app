@@ -37,7 +37,12 @@ function ProductItem(props: { product: ProductType }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={}>
+        <Button
+          size="small"
+          onClick={() => {
+            /** @todo navigate to */
+          }}
+        >
           View Product
         </Button>
         {/* <Button size="small">Share</Button> */}
