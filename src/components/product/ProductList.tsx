@@ -12,8 +12,10 @@ import {
 import React from "react";
 import { ProductType, useProductsContext } from "../../config/context";
 import { productTheme } from "../../config/theme";
+import { useNavigate } from "react-router-dom";
 
 function ProductItem(props: { product: ProductType }) {
+  const navigate = useNavigate();
   const {
     brand,
     category,
@@ -46,6 +48,19 @@ function ProductItem(props: { product: ProductType }) {
           }}
         >
           View Product
+        </Button>
+        <Button
+          size="small"
+          onClick={() => {
+            /** @todo
+             * 1. set product id to currentProductID<ProductContext>
+             * 2. navigate to update product page
+             */
+            // dispatch({type: SET_CURRENT_PRODUCT, payload: product?.id})
+            // navigate();
+          }}
+        >
+          Update Product
         </Button>
         {/* <Button size="small">Share</Button> */}
       </CardActions>
