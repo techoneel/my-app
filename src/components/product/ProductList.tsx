@@ -6,10 +6,12 @@ import {
   CardMedia,
   Container,
   Grid,
+  ThemeProvider,
   Typography,
 } from "@mui/material";
 import React from "react";
 import { ProductType, useProductsContext } from "../../config/context";
+import { productTheme } from "../../config/theme";
 
 function ProductItem(props: { product: ProductType }) {
   const {
@@ -57,15 +59,18 @@ function ProductList() {
   return (
     <Container>
       <Typography variant="h2">Our Products</Typography>
-      <Grid container spacing={1}>
-        {products?.slice(0, 6)?.map((product: ProductType, index: number) => {
-          return (
-            <Grid item key={`product-${index}`}>
-              <ProductItem product={product} />
-            </Grid>
-          );
-        })}
-      </Grid>
+      <ThemeProvider theme={productTheme}>
+        <Grid container spacing={1}>
+          {products /* ?.slice(0, 6) */
+            ?.map((product: ProductType, index: number) => {
+              return (
+                <Grid item key={`product-${index}`}>
+                  <ProductItem product={product} />
+                </Grid>
+              );
+            })}
+        </Grid>
+      </ThemeProvider>
     </Container>
   );
 }

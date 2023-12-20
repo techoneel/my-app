@@ -12,6 +12,9 @@ import {
   initialProducts,
   productReducer,
 } from "../reducers/productReducer";
+import { ThemeProvider } from "@emotion/react";
+import defaultTheme from "../config/theme";
+import AddProduct from "./product/AddProduct";
 
 function App() {
   /**
@@ -23,12 +26,13 @@ function App() {
   // const [products, setProducts] = React.useState<[]>([]);
   // const [currentProductID, setCurrentProductID] = React.useState<number>(NaN);
 
-  const [{ products, currentProductID }, dispatch] = React.useReducer(
-    productReducer,
-    initialProducts
-  );
-  // const [state, dispatch] = React.useReducer(productReducer, initialProducts);
-  // const { products, currentProductID } = state;
+  // const [{ products, currentProductID }, dispatch] = React.useReducer(
+  //   productReducer,
+  //   initialProducts
+  // );
+
+  const [state, dispatch] = React.useReducer(productReducer, initialProducts);
+  const { products, currentProductID } = state;
 
   useEffect(
     () => {
@@ -57,24 +61,45 @@ function App() {
     ]
   );
 
-  return (
-    <ProductProvider
-      products={products}
-      currentProductID={currentProductID}
-      dispatch={dispatch}
+  /**
+ * if you want to declare theme in App.tsx itself
+ * <ThemeProvider
+      theme={createTheme({
+        palette: {
+          primary: {
+            main: "#e84343",
+          },
+          secondary: {
+            main: "#f50057",
+          },
+        },
+      })}
     >
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Product />} />
-          <Route path="/products" element={<ProductList />} />
-          <Route path="/product/:productID" element={<ProductDetails />} />
+    {children}
+    </ThemeProvider>
+ */
 
-          {/* Routes Error Handling */}
-          <Route path="/error" element={<Error500 />} />
-          <Route path="/*" element={<Error404 />} />
-        </Routes>
-      </BrowserRouter>
-    </ProductProvider>
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <ProductProvider
+        products={products}
+        currentProductID={currentProductID}
+        dispatch={dispatch}
+      >
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Product />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/products/add" element={<AddProduct />} />
+            <Route path="/product/:productID" element={<ProductDetails />} />
+
+            {/* Routes Error Handling */}
+            <Route path="/error" element={<Error500 />} />
+            <Route path="/*" element={<Error404 />} />
+          </Routes>
+        </BrowserRouter>
+      </ProductProvider>
+    </ThemeProvider>
   );
 }
 

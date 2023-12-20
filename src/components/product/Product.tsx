@@ -44,7 +44,14 @@ function Product() {
             Go to Product List
           </Button>
           <br />
-          <Button variant="contained">Add Product</Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              navigate("/products/add");
+            }}
+          >
+            Add Product
+          </Button>
         </Grid>
       </Grid>
     </Container>
