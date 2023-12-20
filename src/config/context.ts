@@ -37,10 +37,14 @@ export const ProductContext = React.createContext<ProductContextValueType>(
 
 export const ProductDispatchContext = React.createContext<any>(null);
 
+/**
+ * The below custom hook functions are 
+ * used for getting context value
+ * 
+ */
 export function useProductsContext() {
   return React.useContext(ProductContext);
 }
-
 export function useProductsDispatchContext() {
   return React.useContext(ProductDispatchContext);
 }
@@ -52,7 +56,3 @@ export function useProductsDispatchContext() {
 //   products: [],
 //   currentProductID: 0,
 // });
-
-/**
- *
- */
