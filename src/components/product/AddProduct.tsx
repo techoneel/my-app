@@ -8,6 +8,7 @@ import {
 import { RESET_FORM_DATA } from "../../reducers/productReducer";
 
 export type ProductFormValuesType = {
+  id?: number;
   title: string;
   brand: string;
   // description: string;
@@ -52,6 +53,7 @@ function AddProduct() {
 
   return (
     <>
+      {currentFormData?.id && <p>Product created successfully</p>}
       <pre>{JSON.stringify(currentFormData || {}, null, 2)}</pre>
       <form onSubmit={onSubmit}>
         <input {...register("title")} placeholder="Enter product title" />
