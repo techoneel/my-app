@@ -33,7 +33,7 @@ function App() {
   // );
 
   const [state, dispatch] = React.useReducer(productReducer, initialProducts);
-  const { products, currentProductID } = state;
+  const { products, currentFormData, currentProductID } = state;
 
   useEffect(
     () => {
@@ -72,6 +72,7 @@ function App() {
       <ProductProvider
         products={products}
         currentProductID={currentProductID}
+        currentFormData={currentFormData}
         dispatch={dispatch}
       >
         <BrowserRouter>

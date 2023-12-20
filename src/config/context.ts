@@ -1,4 +1,5 @@
 import React from "react";
+import { ProductFormValuesType } from "../components/product/AddProduct";
 
 export type ProductType = {
   brand: string;
@@ -17,6 +18,7 @@ export type ProductType = {
 // Typescript: with OOPs Concept
 export interface ProductContextValueType {
   products: ProductType[];
+  currentFormData?: ProductFormValuesType | null;
   currentProductID: number;
 }
 
@@ -28,6 +30,7 @@ export interface ProductContextValueType {
 
 const initialProductContextValue = {
   products: [],
+  currentFormData: null,
   currentProductID: 0,
 };
 
@@ -38,14 +41,14 @@ export const ProductContext = React.createContext<ProductContextValueType>(
 export const ProductDispatchContext = React.createContext<any>(null);
 
 /**
- * The below custom hook functions are 
+ * The below custom hook functions are
  * used for getting context value
- * 
+ *
  */
-export function useProductsContext() {
+export function useProductsContext(): ProductContextValueType {
   return React.useContext(ProductContext);
 }
-export function useProductsDispatchContext() {
+export function useProductsDispatchContext(): any {
   return React.useContext(ProductDispatchContext);
 }
 

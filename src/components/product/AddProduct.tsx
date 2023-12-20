@@ -1,7 +1,13 @@
 import React from "react";
 import { Resolver, useForm } from "react-hook-form";
+import { addProduct } from "../../actions/productActions";
+import {
+  useProductsContext,
+  useProductsDispatchContext,
+} from "../../config/context";
+import { RESET_FORM_DATA } from "../../reducers/productReducer";
 
-type ProductFormValuesType = {
+export type ProductFormValuesType = {
   title: string;
   brand: string;
   // description: string;
@@ -25,21 +31,28 @@ const resolver: Resolver<ProductFormValuesType> = async (
 };
 
 function AddProduct() {
-  const [productFormValues, setProductFormValues] =
-    React.useState<ProductFormValuesType | null>(null);
+  const { currentFormData } = useProductsContext();
+  const dispatch = useProductsDispatchContext();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ProductFormValuesType>({ resolver });
 
-  const onSubmit = handleSubmit((data: ProductFormValuesType) => {
-    setProductFormValues(data);
+  const onSubmit = handleSubmit((productFormData: ProductFormValuesType) => {
+    addProduct(dispatch, productFormData);
   });
+
+  React.useEffect(() => {
+    dispatch({ type: RESET_FORM_DATA });
+
+    return () => {};
+  }, []);
 
   return (
     <>
-      <pre>{JSON.stringify(productFormValues || {}, null, 2)}</pre>
+      <pre>{JSON.stringify(currentFormData || {}, null, 2)}</pre>
       <form onSubmit={onSubmit}>
         <input {...register("title")} placeholder="Enter product title" />
         {errors?.title && <p>{errors.title.message}</p>}
