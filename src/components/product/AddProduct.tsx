@@ -1,15 +1,15 @@
 import React from "react";
 import { Resolver, useForm } from "react-hook-form";
 
-type ProductFormValues = {
+type ProductFormValuesType = {
   title: string;
   brand: string;
   // description: string;
   // price: number;
 };
 
-const resolver: Resolver<ProductFormValues> = async (
-  values: ProductFormValues
+const resolver: Resolver<ProductFormValuesType> = async (
+  values: ProductFormValuesType
 ) => {
   return {
     values: values?.title ? values : {},
@@ -26,14 +26,14 @@ const resolver: Resolver<ProductFormValues> = async (
 
 function AddProduct() {
   const [productFormValues, setProductFormValues] =
-    React.useState<ProductFormValues | null>(null);
+    React.useState<ProductFormValuesType | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProductFormValues>({ resolver });
+  } = useForm<ProductFormValuesType>({ resolver });
 
-  const onSubmit = handleSubmit((data: ProductFormValues) => {
+  const onSubmit = handleSubmit((data: ProductFormValuesType) => {
     setProductFormValues(data);
   });
 
