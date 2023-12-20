@@ -25,8 +25,7 @@ const resolver: Resolver<ProductFormValues> = async (
 };
 
 function AddProduct() {
-  const [productFormValues, setProductFormValues] =
-    React.useState<ProductFormValues | null>(null);
+  const [productFormValues, setProductFormValues] =  React.useState<ProductFormValues | null>(null);
   const {
     register,
     handleSubmit,
