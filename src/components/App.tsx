@@ -15,6 +15,7 @@ import {
 import { ThemeProvider } from "@emotion/react";
 import defaultTheme from "../config/theme";
 import AddProduct from "./product/AddProduct";
+import { getProductsList } from "../actions/productActions";
 
 function App() {
   /**
@@ -37,20 +38,7 @@ function App() {
   useEffect(
     () => {
       /* mounting */
-      axios
-        .get("https://dummyjson.com/products")
-        .then((response) => {
-          console.log(response);
-          // when use with component state
-          // setProducts(response?.data?.products);
-          dispatch({
-            type: GET_PRODUCTS_SUCCESS,
-            payload: response?.data?.products,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      getProductsList(dispatch);
 
       return () => {
         /* unmountig */

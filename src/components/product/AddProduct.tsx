@@ -45,7 +45,7 @@ function AddProduct() {
         {errors?.title && <p>{errors.title.message}</p>}
         <input {...register("brand")} placeholder="Enter product brand" />
 
-        <input type="submit" />
+        <button type="submit">Add Product</button>
       </form>
     </>
   );
