@@ -2,9 +2,26 @@ import axios from "axios";
 import {
   ADD_PRODUCTS_SUCCESS,
   GET_PRODUCTS_SUCCESS,
+  SET_CURRENT_PRODUCT_FORM,
 } from "../reducers/productReducer";
 import { ProductFormValuesType } from "../components/product/AddProduct";
-import { error } from "console";
+
+export const getProductDetails = (dispatch: any, productID: string) => {
+  axios
+    .get(`https://dummyjson.com/products/${productID}`)
+    .then((response) => {
+      console.log(response);
+      // when use with component state
+      // setProducts(response?.data?.products);
+      dispatch({
+        type: SET_CURRENT_PRODUCT_FORM,
+        payload: response?.data,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 export const getProductsList = (dispatch: any) => {
   axios

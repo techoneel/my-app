@@ -47,7 +47,7 @@ function Product() {
           <Button
             variant="contained"
             onClick={() => {
-              navigate("/products/add");
+              navigate("/products/form");
             }}
           >
             Add Product

@@ -57,7 +57,7 @@ function ProductItem(props: { product: ProductType }) {
              * 2. navigate to update product page
              */
             // dispatch({type: SET_CURRENT_PRODUCT, payload: product?.id})
-            // navigate();
+            navigate(`/products/form/${id}`);
           }}
         >
           Update Product

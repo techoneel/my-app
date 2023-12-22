@@ -6,9 +6,8 @@ import ProductDetails from "./product/ProductDetails";
 import Error500 from "./errors/Error500";
 import Error404 from "./errors/Error404";
 import ProductProvider from "./ProductProvider";
-import axios from "axios";
 import {
-  GET_PRODUCTS_SUCCESS,
+  RESET_PRODUCT_REDUCER_STATE,
   initialProducts,
   productReducer,
 } from "../reducers/productReducer";
@@ -16,42 +15,45 @@ import { ThemeProvider } from "@emotion/react";
 import defaultTheme from "../config/theme";
 import AddProduct from "./product/AddProduct";
 import { getProductsList } from "../actions/productActions";
+import ProductForm from "./product/ProductForm";
 
 function App() {
   /**
-   * @todo
-   * 1. we need to call an api to get all the products
-   * 2. store the products in some state variable
-   * 3. pass it to the provider
+   * Using useReducer hook
+   * to get state and dispatch function
+   * - to access state values of the reducer
+   * - to call reducer type with payload using dispatch
    */
-  // const [products, setProducts] = React.useState<[]>([]);
-  // const [currentProductID, setCurrentProductID] = React.useState<number>(NaN);
-
-  // const [{ products, currentProductID }, dispatch] = React.useReducer(
-  //   productReducer,
-  //   initialProducts
-  // );
-
   const [state, dispatch] = React.useReducer(productReducer, initialProducts);
+  /* destructuring reducer's state */
   const { products, currentFormData, currentProductID } = state;
 
   useEffect(
     () => {
       /* mounting */
+      /**
+       * call getProductsList action
+       * - call get api
+       * - set data in context through reducer
+       */
       getProductsList(dispatch);
 
       return () => {
         /* unmountig */
+        /**
+         * Reseting product state on unmounting phase
+         */
+        dispatch({ type: RESET_PRODUCT_REDUCER_STATE });
       };
     },
     [
-      /* dependency */
+      /* empty dependency for writing one time mounting logic */
     ]
   );
 
   /**
- * if you want to declare theme in App.tsx itself
- * <ThemeProvider
+   * if you want to declare theme in App.tsx itself
+    <ThemeProvider
       theme={createTheme({
         palette: {
           primary: {
@@ -63,12 +65,13 @@ function App() {
         },
       })}
     >
-    {children}
+      {children}
     </ThemeProvider>
- */
+   */
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      {/* providing theme */}
       <ProductProvider
         products={products}
         currentProductID={currentProductID}
@@ -79,9 +82,16 @@ function App() {
           <Routes>
             <Route path="/" element={<Product />} />
             <Route path="/products" element={<ProductList />} />
-            <Route path="/products/add" element={<AddProduct />} />
+            <Route
+              path="/products/form/:productID?"
+              element={<ProductForm />}
+            />
+            {/* <Route path="/products/add" element={<ProductForm />} />
+            <Route
+              path="/products/update/:productID"
+              element={<ProductForm />}
+            /> */}
             <Route path="/product/:productID" element={<ProductDetails />} />
-
             {/* Routes Error Handling */}
             <Route path="/error" element={<Error500 />} />
             <Route path="/*" element={<Error404 />} />
