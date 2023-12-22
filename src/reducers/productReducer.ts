@@ -11,8 +11,15 @@ export const DELETE_PRODUCTS_SUCCESS = "DELETE_PRODUCTS_SUCCESS";
 export const RESET_PRODUCT_REDUCER_STATE = "RESET_PRODUCT_REDUCER_STATE";
 
 export const initialProducts: ProductContextValueType = {
+  addSuccess: false,
+  updateSuccess: false,
   products: [],
-  currentFormData: null,
+  currentFormData: {
+    id: NaN,
+    title: "",
+    brand: "",
+    description: "",
+  },
   currentProductID: NaN,
 };
 
@@ -28,15 +35,20 @@ export function productReducer(
     case GET_PRODUCTS_SUCCESS:
       return { ...state, products: payload };
     case ADD_PRODUCTS_SUCCESS:
-      return { ...state, currentFormData: payload };
+      return { ...state, addSuccess: true, currentFormData: payload };
     case UPDATE_PRODUCTS_SUCCESS:
-      return { ...state };
+      return { ...state, updateSuccess: true, currentFormData: payload };
     case DELETE_PRODUCTS_SUCCESS:
       return { ...state };
     case RESET_CURRENT_PRODUCT:
       return { ...state, currentProductID: NaN };
     case RESET_FORM_DATA:
-      return { ...state, currentFormData: null };
+      return {
+        ...state,
+        addSuccess: false,
+        updateSuccess: false,
+        currentFormData: null,
+      };
     case RESET_PRODUCT_REDUCER_STATE:
       return initialProducts;
     default:

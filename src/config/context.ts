@@ -17,8 +17,10 @@ export type ProductType = {
 
 // Typescript: with OOPs Concept
 export interface ProductContextValueType {
+  addSuccess?: boolean;
+  updateSuccess?: boolean;
   products: ProductType[];
-  currentFormData?: ProductFormValuesType | null;
+  currentFormData?: ProductFormValuesType;
   currentProductID: number;
 }
 
@@ -30,7 +32,12 @@ export interface ProductContextValueType {
 
 const initialProductContextValue = {
   products: [],
-  currentFormData: null,
+  currentFormData: {
+    id: NaN,
+    title: "",
+    brand: "",
+    description: "",
+  },
   currentProductID: 0,
 };
 

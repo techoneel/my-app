@@ -9,9 +9,9 @@ import { RESET_FORM_DATA } from "../../reducers/productReducer";
 
 export type ProductFormValuesType = {
   id?: number;
-  title: string;
-  brand: string;
-  // description: string;
+  title?: string;
+  brand?: string;
+  description?: string;
   // price: number;
 };
 

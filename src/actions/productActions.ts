@@ -3,6 +3,7 @@ import {
   ADD_PRODUCTS_SUCCESS,
   GET_PRODUCTS_SUCCESS,
   SET_CURRENT_PRODUCT_FORM,
+  UPDATE_PRODUCTS_SUCCESS,
 } from "../reducers/productReducer";
 import { ProductFormValuesType } from "../components/product/AddProduct";
 
@@ -56,6 +57,26 @@ export const addProduct = (
     )
     .then((response) => {
       dispatch({ type: ADD_PRODUCTS_SUCCESS, payload: response.data });
+    })
+    .catch((error) => console.error);
+};
+
+export const updateProduct = (
+  dispatch: any,
+  productFormData: ProductFormValuesType
+) => {
+  console.log(productFormData);
+  dispatch({ type: ADD_PRODUCTS_SUCCESS, payload: productFormData });
+  axios
+    .put(
+      `https://dummyjson.com/products/${productFormData?.id}`,
+      JSON.stringify(productFormData),
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+    .then((response) => {
+      dispatch({ type: UPDATE_PRODUCTS_SUCCESS, payload: response.data });
     })
     .catch((error) => console.error);
 };
