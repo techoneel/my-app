@@ -1,20 +1,18 @@
 import React from "react";
-import { ProductContext, ProductDispatchContext } from "../config/context";
-import { ProductFormValuesType } from "./product/AddProduct";
+import {
+  ProductContext,
+  ProductContextValueType,
+  ProductDispatchContext,
+} from "../config/context";
 
 function ProductProvider(props: {
-  products: any[];
-  currentProductID: number;
-  currentFormData: ProductFormValuesType;
+  state: ProductContextValueType;
   dispatch?: any;
   children: any;
 }) {
-  const { products, currentFormData, currentProductID, dispatch, children } =
-    props;
+  const { state, dispatch, children } = props;
   return (
-    <ProductContext.Provider
-      value={{ products, currentFormData, currentProductID }}
-    >
+    <ProductContext.Provider value={state}>
       <ProductDispatchContext.Provider value={dispatch}>
         {children}
       </ProductDispatchContext.Provider>

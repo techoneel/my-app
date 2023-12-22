@@ -26,7 +26,13 @@ function App() {
    */
   const [state, dispatch] = React.useReducer(productReducer, initialProducts);
   /* destructuring reducer's state */
-  const { products, currentFormData, currentProductID } = state;
+  const {
+    addSuccess,
+    updateSuccess,
+    products,
+    currentFormData,
+    currentProductID,
+  } = state;
 
   useEffect(
     () => {
@@ -72,12 +78,7 @@ function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       {/* providing theme */}
-      <ProductProvider
-        products={products}
-        currentProductID={currentProductID}
-        currentFormData={currentFormData}
-        dispatch={dispatch}
-      >
+      <ProductProvider state={state} dispatch={dispatch}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Product />} />

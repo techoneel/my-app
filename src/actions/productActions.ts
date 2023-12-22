@@ -63,13 +63,15 @@ export const addProduct = (
 
 export const updateProduct = (
   dispatch: any,
+  currentProductID: number,
   productFormData: ProductFormValuesType
 ) => {
   console.log(productFormData);
   dispatch({ type: ADD_PRODUCTS_SUCCESS, payload: productFormData });
+  delete productFormData.id; // for dummyjson api purpose
   axios
     .put(
-      `https://dummyjson.com/products/${productFormData?.id}`,
+      `https://dummyjson.com/products/${currentProductID}`,
       JSON.stringify(productFormData),
       {
         headers: { "Content-Type": "application/json" },

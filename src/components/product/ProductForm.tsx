@@ -24,6 +24,7 @@ import {
   Stack,
   Button,
 } from "@mui/material";
+import axios from "axios";
 
 export type ProductFormValuesType = {
   id?: number;
@@ -74,6 +75,7 @@ function ProductForm() {
     if (formUpdate) {
       updateProduct(
         dispatch,
+        currentProductID,
         productFormData
         // getDeltaChanges(currentFormData, productFormData)
       );
@@ -95,6 +97,18 @@ function ProductForm() {
       getProductDetails(dispatch, productID);
     }
   }, [productID]);
+
+  React.useEffect(() => {
+    console.log("Context value changes");
+    console.log("addSuccess=" + addSuccess);
+    console.log("updateSuccess=" + updateSuccess);
+    console.log("currentProductID=" + currentProductID);
+    console.log("currentFormData=" + currentFormData);
+  }, [addSuccess, updateSuccess, currentProductID, currentFormData, dispatch]);
+
+  React.useEffect(() => {
+    console.log("formUpdate value changes");
+  }, [formUpdate]);
 
   return (
     <Container
