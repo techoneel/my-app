@@ -6,6 +6,7 @@ import {
   UPDATE_PRODUCTS_SUCCESS,
 } from "../reducers/productReducer";
 import { ProductFormValuesType } from "../components/product/AddProduct";
+import { PRODUCT_API } from "../constants";
 
 export const getProductDetails = (dispatch: any, productID: string) => {
   axios
@@ -26,14 +27,16 @@ export const getProductDetails = (dispatch: any, productID: string) => {
 
 export const getProductsList = (dispatch: any) => {
   axios
-    .get("https://dummyjson.com/products")
+    // .get("https://dummyjson.com/products")
+    .get(PRODUCT_API)
     .then((response) => {
       console.log(response);
       // when use with component state
       // setProducts(response?.data?.products);
       dispatch({
         type: GET_PRODUCTS_SUCCESS,
-        payload: response?.data?.products,
+        // payload: response?.data?.products,
+        payload: response?.data,
       });
     })
     .catch((error) => {
@@ -49,7 +52,8 @@ export const addProduct = (
   dispatch({ type: ADD_PRODUCTS_SUCCESS, payload: productFormData });
   axios
     .post(
-      "https://dummyjson.com/products/add",
+      // "https://dummyjson.com/products/add",
+      PRODUCT_API,
       JSON.stringify(productFormData),
       {
         headers: { "Content-Type": "application/json" },
@@ -71,7 +75,8 @@ export const updateProduct = (
   delete productFormData.id; // for dummyjson api purpose
   axios
     .put(
-      `https://dummyjson.com/products/${currentProductID}`,
+      // `https://dummyjson.com/products/${currentProductID}`,
+      `${PRODUCT_API}/${currentProductID}`,
       JSON.stringify(productFormData),
       {
         headers: { "Content-Type": "application/json" },
